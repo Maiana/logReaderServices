@@ -1,16 +1,16 @@
-package services;
+package models;
 
-public class Services {
+public class ServiceLogData {
     private String name;
     private long maxDuration;
     private int requestsCount;
 
 
-    public Services(String name) {
+    public ServiceLogData(String name) {
         this.name = name;
     }
 
-    public Services() {
+    public ServiceLogData() {
 
     }
 

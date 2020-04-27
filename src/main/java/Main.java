@@ -1,4 +1,4 @@
-import models.LogReaderService;
+import services.LogReaderService;
 
 import java.io.*;
 import java.text.ParseException;

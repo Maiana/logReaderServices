@@ -1,6 +1,6 @@
-package models;
+package services;
 
-import services.Services;
+import models.ServiceLogData;
 
 import javax.swing.*;
 import java.io.File;
@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class LogReaderService {
 
-    ArrayList<Services> servicesData = new ArrayList<>();
+    ArrayList<ServiceLogData> serviceLogDataData = new ArrayList<>();
     Hashtable<String, String> pendingRequests = new Hashtable<>();
 
     public void start() throws FileNotFoundException, ParseException {
@@ -76,16 +76,16 @@ public class LogReaderService {
     private void addServiceName(String serviceName){
 
         boolean isServiceCreated = false;
-        for (int i = 0; i < servicesData.size(); i++) {
-            if (servicesData.get(i).getName().equals(serviceName)) {
+        for (int i = 0; i < serviceLogDataData.size(); i++) {
+            if (serviceLogDataData.get(i).getName().equals(serviceName)) {
                 isServiceCreated = true;
             }
         }
 
         if (!isServiceCreated) {
-            Services service = new Services();
+            ServiceLogData service = new ServiceLogData();
             service.setName(serviceName);
-            servicesData.add(service);
+            serviceLogDataData.add(service);
         }
     }
 
@@ -96,8 +96,8 @@ public class LogReaderService {
             String stopDateTimeService = logDateTime;
             long duration = timeCalc(startDateTimeService, stopDateTimeService);
 
-            for (int i = 0; i < servicesData.size(); i++) {
-                Services service = servicesData.get(i);
+            for (int i = 0; i < serviceLogDataData.size(); i++) {
+                ServiceLogData service = serviceLogDataData.get(i);
                 if (service.getName().equals(serviceName)) {
                     if (service.getMaxDuration() < duration)
                     {
@@ -110,8 +110,8 @@ public class LogReaderService {
         }
         else{
             pendingRequests.put(serviceId, logDateTime);
-            for (int i = 0; i < servicesData.size(); i++) {
-                Services service = servicesData.get(i);
+            for (int i = 0; i < serviceLogDataData.size(); i++) {
+                ServiceLogData service = serviceLogDataData.get(i);
                 if (service.getName().equals(serviceName)) {
                     service.increaseRequestsCount();
                 }
@@ -137,10 +137,10 @@ public class LogReaderService {
     }
 
     public void printServiceReport(){
-        for (int i = 0; i < servicesData.size(); i++) {
-            System.out.println("Service Name: " + servicesData.get(i).getName());
-            System.out.println("Max Duration: " + servicesData.get(i).getMaxDuration() + " ms");
-            System.out.println("Request Count: " + servicesData.get(i).getRequestsCount());
+        for (int i = 0; i < serviceLogDataData.size(); i++) {
+            System.out.println("Service Name: " + serviceLogDataData.get(i).getName());
+            System.out.println("Max Duration: " + serviceLogDataData.get(i).getMaxDuration() + " ms");
+            System.out.println("Request Count: " + serviceLogDataData.get(i).getRequestsCount());
             System.out.println("\n");
         }
     }
